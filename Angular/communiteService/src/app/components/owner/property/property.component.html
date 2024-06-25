@@ -1,0 +1,267 @@
+<div>
+  <div class="my-5">
+    <input type="radio" class="btn-check" name="template" id="option5" autocomplete="off" checked value="Rent Property"
+      [(ngModel)]="template">
+    <label class="btn btn-outline-success me-3" for="option5">Rent Property</label>
+
+    <input type="radio" class="btn-check" name="template" id="option6" autocomplete="off"
+      value="Book a Community Service" [(ngModel)]="template">
+    <label class="btn btn-outline-success me-3" for="option6">Book a Community Service</label>
+  </div>
+  <div>
+<!-- ============================================Rent Section============================================== -->
+
+    <ng-template [ngIf]="template=='Rent Property'">
+      <!-- {{propertyDetails|json}} <br>
+      Houser number:    {{howsNumber|json}} <br>
+      Flat number:    {{flatNumber|json}}<br>
+      Tenant Name:    {{tenantName|json}}<br>
+      Phone no:    {{phoneNo|json}}<br>
+      Family Member:    {{familymember|json}}<br>
+      Occupation:    {{occupation|json}}<br>
+      Rent Date:    {{rentDate|json}}<br>
+      Fixed Deposit:    {{fixedDeposit|json}}<br>
+      Monthly Rent:    {{monthlyRent|json}}<br>
+      Service Bill:    {{serviceBill|json}}<br>
+      Utility Bill:    {{utilityBill|json}}<br>
+      Bills : {{bills|json}} -->
+      <div>
+        <div class="mt-5 pe-4">
+          <form (ngSubmit)="submit()">
+            <div class="row">
+              <div class="mb-3 col">
+                <label for="ownerId" class="form-label">Owner Id</label>
+                <input type="text" class="form-control" id="ownerId" name="ownerId" [(ngModel)]="ownerId"
+                  (blur)="houseNoByOwnerId()">
+                <!-- onfocus="houseNoByOwnerId()" -->
+              </div>
+              <!-- <div class="mb-3 col-sm-1">
+                        <button type="submit" class="btn btn-outline-success mt-4" (click)="houseNoByOwnerId()">Search</button>
+                      </div> -->
+              <div class="mb-3 col">
+                <label for="exampleInputEmail1" class="form-label">House Number</label>
+                <select class="form-select" aria-label="Default select example" #dd (change)="setHouseNo(dd.value)">
+                  <option selected>Select House Number</option>
+                  <option *ngFor="let i of propertyDetails; let z=index;" [value]="z">{{i.houseNo}}</option>
+
+                </select>
+              </div>
+              <div class="mb-3 col">
+                <label for="exampleInputEmail1" class="form-label">Flat No</label>
+                <select class="form-select" aria-label="Default select example" #dd (change)="setFlatNo(dd.value)">
+                  <option selected>Select Flat Number</option>
+                  <option *ngFor="let i of propertyDetails; let z=index;" [value]="z">{{i.flatNo}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-3 col">
+                <label for="tenantName" class="form-label">Tenant Name</label>
+                <input type="text" class="form-control" id="tenantName" name="tenantName" [(ngModel)]="tenantName">
+              </div>
+              <div class="mb-3 col">
+                <label for="phoneNo" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="phoneNo" name="phoneNo" [(ngModel)]="phoneNo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-3 col">
+                <label for="familymember" class="form-label">Family Member</label>
+                <input type="text" class="form-control" id="familymember" name="familymember"
+                  [(ngModel)]="familymember">
+              </div>
+              <div class="mb-3 col">
+                <label for="occupation" class="form-label">Occupation</label>
+                <input type="text" class="form-control" id="occupation" name="occupation" [(ngModel)]="occupation">
+              </div>
+              <div class="mb-3 col">
+                <label for="rentDate" class="form-label">Rent Date</label>
+                <input type="date" class="form-control" id="rentDate" name="rentDate" placeholder="dd-mm-yyyy"
+                  [(ngModel)]="rentDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-3 col">
+                <label for="fixedDeposit" class="form-label">Fixed Deposit</label>
+                <input type="number" class="form-control" id="fixedDeposit" name="fixedDeposit"
+                  [(ngModel)]="fixedDeposit">
+              </div>
+              <div class="mb-3 col">
+                <label for="monthlyRent" class="form-label">Monthly Rent</label>
+                <input type="number" class="form-control" id="monthlyRent" name="monthlyRent" [(ngModel)]="monthlyRent">
+              </div>
+              <div class="mb-3 col">
+                <label for="serviceBill" class="form-label">Service Bill</label>
+                <input type="number" class="form-control" id="serviceBill" name="serviceBill" [(ngModel)]="serviceBill">
+              </div>
+              <div class="mb-3 col">
+                <label for="utilityBill" class="form-label">Utility Bill</label>
+                <input type="number" class="form-control" id="utilityBill" name="utilityBill" [(ngModel)]="utilityBill">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+<!-- ============================================Community service Bill Section============================================== -->
+
+
+    <ng-template [ngIf]="template=='Book a Community Service'">
+      <div class="my-5 pe-4">
+        <div class="mb-3 col">
+          <select class="form-select" aria-label="Default select example" id="propertyType" name="propertyType"
+            [(ngModel)]="propertyType">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col">
+          <label for="date" class="form-label">Date</label>
+          <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
+        </div>
+
+        <div class="mb-3 col">
+          <label for="onnerTenentId" class="form-label">Owner/Tenent Id</label>
+          <input type="text" class="form-control" id="onnerTenentId" name="onnerTenentId" [(ngModel)]="ownerTenentId">
+        </div>
+
+        <div class="mb-3 col">
+          <label for="reason" class="form-label">Reason</label>
+          <input type="text" class="form-control" id="reason" name="reason" [(ngModel)]="reason">
+        </div>
+      </div>
+    </ng-template>
+
+<!-- ============================================Agreement Bill Section============================================== -->
+
+    <ng-template [ngIf]="template=='Agreement Billing'">
+      {{paydate|json}}
+      <!-- ============================Owner and Customer Details===================== -->
+      <div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Owner Id :</th>
+              <td>{{ownerId}}</td>
+              <th scope="row">House Number :</th>
+              <td>{{howsNumber}}</td>
+              <th scope="row">Flat Number :</th>
+              <td>{{flatNumber}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Tenant Name :</th>
+              <td>{{tenantName}}</td>
+              <th scope="row">Phone No :</th>
+              <td>{{phoneNo}}</td>
+              <th scope="row">Date</th>
+              <td>{{paydate|date:'dd-MMM-yyyy'}}</td>
+              <!-- <th scope="row">Payment Date</th>
+              <td>{{flatNumber}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- ============================Bill Description Section===================== -->
+      <div class="row">
+        <div class="col-sm-7">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Bill Description</th>
+                <th scope="col">Ammount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of bills">
+                <td>{{i.billdes}}</td>
+                <td>{{i.ammount}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Total =</th>
+                <th scope="row">{{totalBill}}</th>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table">
+            <thead>
+
+            </thead>
+            <!-- <tbody>
+            <tr *ngFor="let i of bills">
+              <td>{{i.billdes}}</td>
+              <td>{{i.ammount}}</td>
+            </tr>
+          </tbody> -->
+          </table>
+        </div>
+        <!-- ============================Bill Collection Section===================== -->
+        <div class="col-sm-4">
+          <table class="table">
+            <!-- <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead> -->
+            <tbody>
+              <tr>
+
+
+              </tr>
+              <tr>
+                <th scope="row">Total</th>
+                <td>{{totalBill}}</td>
+
+              </tr>
+              <tr>
+                <th scope="row">Renter Id</th>
+                <td>
+                  <div class="mb-3 col">
+                    <!-- <label for="payammount" class="form-label">Utility Bill</label> -->
+                    <input type="number" class="form-control" id="payammount" name="payammount"
+                      [(ngModel)]="payammount">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Pay Ammount</th>
+                <td>
+                  <div class="mb-3 col">
+                    <!-- <label for="payammount" class="form-label">Utility Bill</label> -->
+                    <input type="number" class="form-control" id="payammount" name="payammount"
+                      [(ngModel)]="payammount">
+                  </div>
+                </td>
+
+              </tr>
+              <tr>
+                <th scope="row">Payment Type</th>
+                <td>
+                  <div class="mb-3 col">
+                    <!-- <label for="payammount" class="form-label">Utility Bill</label> -->
+                    <select class="form-select" name="" [(ngModel)]="transectionType">
+                      <option selected>Select Payment Type</option>
+                      <option value="Cash Deposit">Cash Deposit</option>
+                      <option value="Account Transfer">Account Transfer</option>
+                      <!-- <option value="3">Three</option> -->
+                    </select>
+                  </div>
+                </td>
+
+              </tr>
+              <tr>
+                <th scope="row">Return Ammount</th>
+                <td colspan="2">{{payammount-totalBill}}</td>
+              </tr>
+              <button type="submit" class="btn btn-outline-success" (click)="print()">Submit</button>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

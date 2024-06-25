@@ -1,0 +1,174 @@
+<div>
+
+    <div>
+        <input type="radio" class="btn-check" name="template" id="option5" autocomplete="off" checked value="List Property" [(ngModel)]="template">
+        <label class="btn" for="option5">List Property</label>
+
+        <input type="radio" class="btn-check" name="template" id="option6" autocomplete="off" value="All property" [(ngModel)]="template">
+        <label class="btn" for="option6">All property</label>
+
+        <input type="radio" class="btn-check" name="template" id="option7" autocomplete="off" value="Rented Property"  [(ngModel)]="template">
+        <label class="btn" for="option7">Rented Property</label>
+
+        <input type="radio" class="btn-check" name="template" id="option8" autocomplete="off" value="Non rented property" [(ngModel)]="template">
+        <label class="btn" for="option8">Non rented property</label>
+    </div>
+
+    <ng-template [ngIf]="template=='List Property'">
+        <form (ngSubmit)="saveProperty()">
+            <div class="row">
+            <div class="mb-3 col" >
+              <label for="propertyType" class="form-label"> Property Type</label>
+              <input type="text" class="form-control" id="propertyType" name="propertyType" aria-describedby="emailHelp" [(ngModel)]="propertyType">
+             
+            </div>
+            <div class="mb-3 col">
+              <label for="flatNumber" class="form-label">Flat Number</label>
+              <input type="text" class="form-control" id="flatNumber" name="flatNumber" [(ngModel)]="flatNumber">
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col" >
+              <label for="howsNumber" class="form-label"> House Number</label>
+              <input type="text" class="form-control" id="howsNumber" name="howsNumber" aria-describedby="emailHelp" [(ngModel)]="howsNumber">
+              
+            </div>
+            <div class="mb-3 col">
+              <label for="onnerId" class="form-label">Onner Id</label>
+              <input type="text" class="form-control" id="onnerId" name="onnerId" [(ngModel)]="ownerId">
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+    </ng-template>
+<!-- 
+
+    <ng-template [ngIf]="template=='List Property'">\
+       <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Property Id</th>
+                <th scope="col">Property type</th>
+                <th scope="col">Huse Number</th>
+                <th scope="col">Flat Number</th>
+                <th scope="col">Onner Id</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>Mark</td>
+                <td>Otto</td>
+               
+              </tr>
+              
+            </tbody>
+          </table>
+       </div>
+       
+    </ng-template> -->
+
+    <ng-template [ngIf]="template=='All property'">
+        <div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Property Id</th>
+                    <th scope="col">Property type</th>
+                    <th scope="col">Huse Number</th>
+                    <th scope="col">Flat Number</th>
+                    <th scope="col">Onner Id</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <!-- (propertyid:any,type:any,houseNo:any,flatNo:any,ownerId:any) -->
+                  <tr *ngFor="let i of allproperty">
+                    
+                    <td>{{i.propertyid}}</td>
+                    <td>{{i.type}}</td>
+                    <td>{{i.houseNo}}</td>
+                    <td>{{i.flatNo}}</td>
+                    <td>{{i.ownerId}}</td>
+                    <td>
+                      <button type="submit" class="btn btn-primary" >Rent</button>
+                    </td>
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
+           </div>
+    </ng-template>
+
+
+    <ng-template [ngIf]="template=='Rented Property'">
+        <div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Property Id</th>
+                    <th scope="col">Property type</th>
+                    <th scope="col">Huse Number</th>
+                    <th scope="col">Flat Number</th>
+                    <th scope="col">Onner Id</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
+           </div>
+    </ng-template>
+
+    <ng-template [ngIf]="template=='Non rented property'">\
+        <div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Property Id</th>
+                    <th scope="col">Property type</th>
+                    <th scope="col">Huse Number</th>
+                    <th scope="col">Flat Number</th>
+                    <th scope="col">Onner Id</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
+           </div>
+    </ng-template>
+
+
+
+</div> 

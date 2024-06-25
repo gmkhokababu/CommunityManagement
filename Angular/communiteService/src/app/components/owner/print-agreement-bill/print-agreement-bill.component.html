@@ -1,0 +1,99 @@
+<div>
+    <ng-template [ngIf]="template=='billPrint'">
+        <div class=" mt-5 mx-3">
+            <!-- ============================Owner and Customer Details===================== -->
+            <div>
+
+                <!-- ============================Owner and Customer Details===================== -->
+                <div>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Owner Id :</th>
+                                <td>{{ownerId}}</td>
+                                <th scope="row">House Number :</th>
+                                <td>{{howsNumber}}</td>
+                                <th scope="row">Flat Number :</th>
+                                <td>{{flatNumber}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tenant Name :</th>
+                                <td>{{tenantName}}</td>
+                                <th scope="row">Phone No :</th>
+                                <td>{{phoneNo}}</td>
+                                <th scope="row">Date</th>
+                                <td>{{paydate|date:'dd-MMM-yyyy'}}</td>
+                                <!-- <th scope="row">Payment Date</th>
+              <td>{{flatNumber}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <hr>
+                <br>
+                <br>
+                <br>
+                <!-- ============================Bill Description Section===================== -->
+                <div class="row ">
+                    <div class="col">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr >
+                                    <th scope="col">Bill Description</th>
+                                    <th scope="col" class="text-end">Ammount</th>
+                                </tr>
+                                <tr class="text-between">
+                                    <td><hr></td>
+                                    <td><hr></td>
+                                </tr>
+                            </thead>
+                           
+                            <tbody>
+                                <tr *ngFor="let i of bills">
+                                    <td>{{i.billdes}}</td>
+                                    <td class="text-end">= {{i.ammount}}</td>
+                                </tr>
+                                <tr class="text-between">
+                                    <td><hr></td>
+                                    <td><hr></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <th scope="row" class="text-end">= {{totalBill}}</th>
+                                </tr>
+                              
+                                <tr>
+                                    <th scope="row">Pay Ammount</th>
+                                    <th scope="row" class="text-end">= {{payammount}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template [ngIf]="template=='agreementPrint'">
+        <div>
+            <div class="container mt-5">
+                <h1 class="text-center">Rantal Agreement</h1>
+                <br>
+                <br>
+                <hr>
+                <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                    dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
+                    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
+                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius
+                    modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
+                    veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+                    commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
+                    molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                </p>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

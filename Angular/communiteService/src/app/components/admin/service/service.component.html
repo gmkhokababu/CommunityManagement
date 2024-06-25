@@ -1,0 +1,164 @@
+<div>
+    <div>
+        <input type="radio" class="btn-check " name="service" id="service3" autocomplete="off" checked
+            value="Add Admin Account" [(ngModel)]="service">
+        <label class="btn btn-outline-success me-3" for="service3">Add Admin Account</label>
+
+        <input type="radio" class="btn-check " name="service" id="service1" autocomplete="off"
+            value="Add Service Property" [(ngModel)]="service">
+        <label class="btn btn-outline-success me-3" for="service1">Add Service Property</label>
+
+        <input type="radio" class="btn-check me-3" name="service" id="service2" autocomplete="off"
+            value="Booked Service" [(ngModel)]="service">
+        <label class="btn btn-outline-success me-3" for="service2">Booked Service</label>
+        <!-- 
+        <input type="radio" class="btn-check" name="options-base" id="service3" autocomplete="off" disabled>
+        <label class="btn" for="service3">Disabled</label>
+
+        <input type="radio" class="btn-check" name="options-base" id="service4" autocomplete="off">
+        <label class="btn" for="service4">Radio</label> -->
+    </div>
+
+    <div>
+
+        <!-- =========================================Add Admin Account============================================= -->
+        <ng-template [ngIf]="service=='Add Admin Account'">
+            <div class="my-5">
+                <form (ngSubmit)="createAccount()">
+                    <div class="row">
+                        <div class="mb-3 col">
+                          <label for="accNo" class="form-label">Account Number</label>
+                          <input type="text" class="form-control" id="accNo" name="accNo" [(ngModel)]="accNo" required>
+                        </div>
+                        <div class="mb-3 col">
+                          <label for="accountName" class="form-label">Account Name</label>
+                          <input type="text" class="form-control" id="accountName" name="accountName" [(ngModel)]="accountName" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </ng-template>
+        <!-- =========================================Add property============================================= -->
+        <ng-template [ngIf]="service=='Add Service Property'">
+            <div class="my-5">
+                <form (ngSubmit)="save()">
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="propertyName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="propertyName" name="propertyName" [(ngModel)]="propertyName">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="rentPday" class="form-label">Rent per Day</label>
+                            <input type="text" class="form-control" id="rentPday" name="rentPday" [(ngModel)]="rentPday">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="servicecharge" class="form-label">Service Charge</label>
+                            <input type="text" class="form-control" id="servicecharge" name="servicecharge" [(ngModel)]="servicecharge">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="catagory" class="form-label">Service Catagory</label>
+                            <select class="form-select" aria-label="Default select example" id="catagory" name="catagory" [(ngModel)]="catagory" (change)="onCatagoryChangeEvent($event)">
+                                <option selected>Select Service Catagory</option>
+                                <option *ngFor="let i of allcatagory" [value]="i.catagoryName">{{i.catagoryName}}</option>
+                                <!-- <option value="2">Two</option> -->
+                                <option value="addNew">Add New Catagory</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </ng-template>
+
+        <!-- ===========================================Booked Service================================================ -->
+        <ng-template [ngIf]="service=='Booked Service'">
+            <!-- {{allProperty|json}} -->
+             <!-- {{servicePropertyid|json}}
+             Rent {{rentPerDay|json}} -->
+             {{accounts|json}}
+            <div class="my-5">
+                <form (ngSubmit)="saveadminandtransection()">
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="customerName" class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" id="customerName" name="customerName" [(ngModel)]="customerName">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="phoneNo" class="form-label">Phone no</label>
+                            <input type="text" class="form-control" id="phoneNo" name="phoneNo" [(ngModel)]="phoneNo">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="bookingStart" class="form-label">Date From</label>
+                            <input type="date" class="form-control" id="bookingStart" name="bookingStart" [(ngModel)]="bookingStart">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="bookingEnd" class="form-label">Date To</label>
+                            <input type="date" class="form-control" id="bookingEnd" name="bookingEnd" [(ngModel)]="bookingEnd" (blur)="daycalculation()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="catagoryforproperty" class="form-label">Service Catagory</label>
+                            <select class="form-select" aria-label="Default select example" id="catagoryforproperty" name="catagoryforproperty" [(ngModel)]="catagoryforproperty" (change)="onCatagoryChangePropertyEvent($event)">
+                                <option value="Select Service Catagory">Select Service Catagory</option>
+                                <option *ngFor="let i of allcatagory" [value]="i.catagoryName">{{i.catagoryName}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="exampleInputPassword1" class="form-label">Select Service Property</label>
+                            <select class="form-select" aria-label="Default select example" (change)="setServicePropertyId($event)">
+                                <option selected>Select Service Property</option>
+                                <option *ngFor="let i of allProperty" [value]="i.servicePropertyid">{{i.propertyName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ========================Payment Section============================== -->
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="totalDays" class="form-label">Day of Booking</label>
+                            <input type="number" class="form-control" id="totalDays" name="totalDays" [(ngModel)]="totalDays" disabled>
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="rentPerDay" class="form-label">Daily Booking Charge</label>
+                            <input type="number" class="form-control" id="rentPerDay" name="rentPerDay" [(ngModel)]="rentPerDay" disabled>
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="serviceCharge" class="form-label">Service Charge</label>
+                            <input type="number" class="form-control" id="serviceCharge" name="serviceCharge" [(ngModel)]="serviceCharge" disabled>
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="totalBill" class="form-label">Total</label>
+                            <input type="number" class="form-control" id="totalBill" name="totalBill" [(ngModel)]="totalBill" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="exampleInputPassword1" class="form-label">Select Account Number</label>
+                            <select class="form-select" aria-label="Default select example" (change)="setTransectionAccountsDetails($event)">
+                                <option selected>Select Account Number</option>
+                                <option *ngFor="let i of accounts" [value]="i.accountName">{{i.accountName}} {{i.accountType}}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="transectionType" class="form-label">Select Payment Type</label>
+                            <select class="form-select" id="transectionType" name="transectionType" [(ngModel)]="transectionType">
+                              <option selected>Select Payment Type</option>
+                              <option value="Cash Deposit">Cash Deposit</option>
+                              <option value="Account Transfer">Account Transfer</option>
+                            </select>
+                          </div>
+                        <div class="mb-3 col">
+                            <label for="payAmmount" class="form-label">Payment</label>
+                            <input type="number" class="form-control" id="payAmmount" name="payAmmount" [(ngModel)]="payAmmount">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </ng-template>
+    </div>
+</div>

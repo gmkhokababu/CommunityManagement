@@ -1,0 +1,27 @@
+<div>
+    <div>
+        <form (ngSubmit)="Save()">
+        <div class="row">
+            <div class="mb-3 col">
+              <label for="ownerName" class="form-label">Owner Name</label>
+              <input type="text" class="form-control" id="ownerName" name="ownerName" [(ngModel)]="ownerName" required>
+            </div>
+            <div class="mb-3 col">
+              <label for="phoneNo" class="form-label">Phone No</label>
+              <input type="text" class="form-control" id="phoneNo" name="phoneNo" [(ngModel)]="phoneNo" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+              <label for="accNo" class="form-label">Account Number</label>
+              <input type="text" class="form-control" id="accNo" name="accNo" [(ngModel)]="accNo" required>
+            </div>
+            <div class="mb-3 col">
+              <label for="accountName" class="form-label">Account Name</label>
+              <input type="text" class="form-control" id="accountName" name="accountName" [(ngModel)]="accountName" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+package com.example.demo.entity;
+
+import java.sql.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class AdvertisementPropertyBooking {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int adPropertyBookingId;
+	int adPropertyId;
+	Date bookingStart;
+	Date bookingEnd;
+	String status;
+	String customerName;
+	String phoneNo;
+}

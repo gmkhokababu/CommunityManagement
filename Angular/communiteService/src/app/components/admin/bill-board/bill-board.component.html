@@ -1,0 +1,60 @@
+<div>
+    <div>
+        <div>
+            <!-- <input type="radio" class="btn-check " name="service" id="service3" autocomplete="off" checked
+                value="Add Admin Account" [(ngModel)]="service">
+            <label class="btn btn-outline-success me-3" for="service3">Add Service</label> -->
+    
+            <input type="radio" class="btn-check " name="service" id="service1" autocomplete="off"
+                value="Add Service Property" [(ngModel)]="service">
+            <label class="btn btn-outline-success me-3" for="service1">Add Service Property</label>
+    
+            <input type="radio" class="btn-check me-3" name="service" id="service2" autocomplete="off"
+                value="Booked Service" [(ngModel)]="service">
+            <label class="btn btn-outline-success me-3" for="service2">Booked Service</label>
+            <!-- 
+            <input type="radio" class="btn-check" name="options-base" id="service3" autocomplete="off" disabled>
+            <label class="btn" for="service3">Disabled</label>
+    
+            <input type="radio" class="btn-check" name="options-base" id="service4" autocomplete="off">
+            <label class="btn" for="service4">Radio</label> -->
+        </div>
+    </div>
+    <div>
+
+         <!-- =========================================Add property============================================= -->
+         <ng-template [ngIf]="service=='Add Service Property'">
+            {{allcatagory|json}}
+            {{catagory|json}}
+            <div class="my-5">
+                <form (ngSubmit)="save()">
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="propertyName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="propertyName" name="propertyName" [(ngModel)]="propertyName">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="rentPerMonth" class="form-label">Rent per Month</label>
+                            <input type="text" class="form-control" id="rentPerMonth" name="rentPerMonth" [(ngModel)]="rentPerMonth">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col">
+                            <label for="servicecharge" class="form-label">Service Charge</label>
+                            <input type="text" class="form-control" id="servicecharge" name="servicecharge" [(ngModel)]="servicecharge">
+                        </div>
+                        <div class="mb-3 col">
+                            <label for="catagory" class="form-label">Service Catagory</label>
+                            <select class="form-select" aria-label="Default select example" id="catagory" name="catagory" [(ngModel)]="catagory" (change)="onCatagoryChangeEvent($event)" (focus)="getAllCatagory()">
+                                <option selected>Select Service Catagory</option>
+                                <option *ngFor="let i of allcatagory" [value]="i.catagoryName">{{i.catagoryName}}</option>
+                                <option value="addNew">Add New Catagory</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </ng-template>
+        </div>
+</div>
