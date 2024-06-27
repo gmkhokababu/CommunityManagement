@@ -12,6 +12,9 @@ import { ServiceCatagory } from '../model/service-catagory';
 import { ServicePropertyRent } from '../model/service-property-rent';
 import { AdvertisementCatagory } from '../model/advertisement-catagory';
 import { AdvertisementProperty } from '../model/advertisement-property';
+import { Parking } from '../model/parking';
+import { ParkingFare } from '../model/parking-fare';
+import { AdvertisementPropertyBooking } from '../model/advertisement-property-booking';
 
 @Injectable({
   providedIn: 'root'
@@ -142,6 +145,12 @@ saveAdminPropertyBooking(p:any):Observable<ServicePropertyRent>{
   return this.http.post<ServicePropertyRent>(this.url,p);
 }
 
+//get booking property
+getallpropertybooking():Observable<ServicePropertyRent>{
+  this.url="http://localhost:8080/getbookigproperty";
+  return this.http.get<ServicePropertyRent>(this.url);
+}
+
 
 //=============================================Advertisement section===============================================
 
@@ -161,6 +170,62 @@ getAdvertisementCatagory():Observable<AdvertisementCatagory>{
 saveAdvertisementProperty(p:any):Observable<AdvertisementProperty>{
   this.url="http://localhost:8080/advertisement-property-save";
   return this.http.post<AdvertisementProperty>(this.url,p);
+}
+
+
+// get all property by catagory
+getAllAdvertisementPropertyByCatagory(catagory:any):Observable<AdvertisementProperty>{
+  this.url="http://localhost:8080/get-advertisement-property-by-catagory/"+catagory;
+ return this.http.get<AdvertisementProperty>(this.url);
+}
+
+bookigAdvertisement(p:any):Observable<AdvertisementPropertyBooking>{
+  this.url="http://localhost:8080/bookedadvertise";
+  return this.http.post<AdvertisementPropertyBooking>(this.url,p);
+}
+
+//get advertisement catagor
+getAdvertisementBooking():Observable<AdvertisementPropertyBooking>{
+  this.url="http://localhost:8080/getbookigadvertise";
+  return this.http.get<AdvertisementPropertyBooking>(this.url);
+}
+
+
+
+
+//===========================================parking section==================================
+
+//save parking slot;
+saveParkingSlot(p:any):Observable<Parking>{
+  this.url="http://localhost:8080/save-parking-slot";
+  return this.http.post<Parking>(this.url,p);
+}
+
+//get parking slot by car type
+getParkingSlotByCarType(cartype:any):Observable<AdvertisementProperty>{
+  this.url="http://localhost:8080/get-parking-slot-by-car-type/"+cartype;
+ return this.http.get<AdvertisementProperty>(this.url);
+}
+
+//get parking slot by car type
+updateParkingStatus(slotNo:any,status:any):Observable<AdvertisementProperty>{
+  this.url="http://localhost:8080/update-parking-status/"+slotNo+"/"+status;
+ return this.http.get<AdvertisementProperty>(this.url);
+}
+
+
+
+
+//======================================booked parking==============================
+bookedParking(p:any):Observable<ParkingFare>{
+  this.url="http://localhost:8080/save-parking-booking";
+  return this.http.post<ParkingFare>(this.url,p);
+}
+
+
+ParkingdataBydateCarno(date:any,carno:any):Observable<ParkingFare>{
+  this.url="http://localhost:8080/get-parking-by-date-carno/"+date+"/"+carno;
+  return this.http.get<ParkingFare>(this.url);
 }
 
 

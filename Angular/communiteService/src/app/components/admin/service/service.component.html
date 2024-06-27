@@ -11,6 +11,9 @@
         <input type="radio" class="btn-check me-3" name="service" id="service2" autocomplete="off"
             value="Booked Service" [(ngModel)]="service">
         <label class="btn btn-outline-success me-3" for="service2">Booked Service</label>
+        <input type="radio" class="btn-check me-3" name="service" id="service4" autocomplete="off"
+            value="allBooked" [(ngModel)]="service">
+        <label class="btn btn-outline-success me-3" for="service4" (click)="getallbookingdata()">All Booking List</label>
         <!-- 
         <input type="radio" class="btn-check" name="options-base" id="service3" autocomplete="off" disabled>
         <label class="btn" for="service3">Disabled</label>
@@ -78,7 +81,7 @@
             <!-- {{allProperty|json}} -->
              <!-- {{servicePropertyid|json}}
              Rent {{rentPerDay|json}} -->
-             {{accounts|json}}
+             <!-- {{accounts|json}} -->
             <div class="my-5">
                 <form (ngSubmit)="saveadminandtransection()">
                     <div class="row">
@@ -158,6 +161,36 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+            </div>
+        </ng-template>
+        <!-- =========================================Add property============================================= -->
+        <ng-template [ngIf]="service=='allBooked'">
+            <!-- {{allbookinglist|json}} -->
+            <div>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">Property Id</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Customar Name</th>
+                        <th scope="col">Customar Phone Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let i of allbookinglist">
+                        <th scope="row">{{i.bookingId}}</th>
+                        <td>{{i.servicePropertyid}}</td>
+                        <td>{{i.bookingStart}}</td>
+                        <td>{{i.bookingEnd}}</td>
+                        <td>{{i.status}}</td>
+                        <td>{{i.customerName}}</td>
+                        <td>{{i.phoneNo}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
         </ng-template>
     </div>

@@ -1,0 +1,33 @@
+package com.example.demo.da;
+
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.entity.Parking;
+
+public class ParkingDA extends MySqlConnection{
+
+	String getAllParkingSlotByCarType="select * from parking where car_type=? and status='available'";
+	public List<Parking> allParkingSlotByCarType=new ArrayList<>();
+	public List<Parking> getAllParkingSlotByCarType(String catagory){
+			
+			
+			try {
+				con=DriverManager.getConnection(url,user,pass);
+				ps=con.prepareStatement(getAllParkingSlotByCarType);
+				ps.setString(1, catagory);
+				rs=ps.executeQuery();
+				while (rs.next()) {
+
+					allParkingSlotByCarType.add(new Parking(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5)));
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			return allParkingSlotByCarType;
+			
+	}
+	
+}

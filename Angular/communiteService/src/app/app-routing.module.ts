@@ -10,6 +10,7 @@ import { PrintAgreementComponent } from './components/owner/print-agreement/prin
 import { LoginComponent } from './components/login/login.component';
 import { ServiceComponent } from './components/admin/service/service.component';
 import { BillBoardComponent } from './components/admin/bill-board/bill-board.component';
+import { ParkingComponent } from './component/admin/parking/parking.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
       {path:'adminowner',component:AdminOwnerComponent},
       {path:'services',component:ServiceComponent},
       {path:'bill-board',component:BillBoardComponent},
+      {path:'parking',component:ParkingComponent},
 
     ]
   },

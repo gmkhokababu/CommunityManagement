@@ -1,0 +1,34 @@
+<div>
+    <div>
+        <!-- {{carType|json}} -->
+        <form (ngSubmit)="save()">
+            <div class="row">
+                <div class="mb-3 col">
+                    <label for="carType" class="form-label">Car Type</label>
+                    <select class="form-select" aria-label="Default select example" name="carType"
+                        [(ngModel)]="carType">
+                        <option value="select" selected>Select Option</option>
+                        <option value="By-Cycle">By-Cycle</option>
+                        <option value="Motor Cycle">Motor Cycle</option>
+                        <option value="Private Car">Private Car</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Truck">Truck</option>
+                    </select>
+                </div>
+                <div class="mb-3 col">
+                    <label for="buildingNo" class="form-label">Building No</label>
+                    <input type="number" class="form-control" id="buildingNo" name="buildingNo" [(ngModel)]="buildingNo">
+                </div>
+                <div class="mb-3 col">
+                    <label for="capacity" class="form-label">Capacity</label>
+                    <input type="number" class="form-control" id="capacity" name="capacity" [(ngModel)]="capacity">
+                </div>
+                <div class="mb-3 col">
+                    <label for="fare" class="form-label">Fare</label>
+                    <input type="number" class="form-control" id="fare" name="fare" [(ngModel)]="fare">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

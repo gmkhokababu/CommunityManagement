@@ -1,0 +1,21 @@
+<div>
+    <div>
+        <div>
+            <input type="radio" class="btn-check " name="service" id="service1" autocomplete="off"
+                value="ParkingBooking" [(ngModel)]="service">
+            <label class="btn btn-outline-success me-3" for="service1">Parking Booking</label>
+    
+            <input type="radio" class="btn-check me-3" name="service" id="service2" autocomplete="off"
+                value="AddParkingSpace" [(ngModel)]="service">
+            <label class="btn btn-outline-success me-3" for="service2">Add parking Space</label>
+        </div>
+        <div>
+            <ng-template [ngIf]="service=='ParkingBooking'">
+                <app-parking-booking></app-parking-booking>
+            </ng-template>
+            <ng-template [ngIf]="service=='AddParkingSpace'">
+                <app-parking-fare></app-parking-fare>
+            </ng-template>
+        </div>
+    </div>
+</div>

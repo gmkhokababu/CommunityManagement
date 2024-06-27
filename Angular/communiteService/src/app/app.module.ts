@@ -17,6 +17,9 @@ import { AdminOwnerNavComponent } from './components/admin/admin-owner-nav/admin
 import { ServiceComponent } from './components/admin/service/service.component';
 import { LoginComponent } from './components/login/login.component';
 import { BillBoardComponent } from './components/admin/bill-board/bill-board.component';
+import { ParkingComponent } from './component/admin/parking/parking.component';
+import { ParkingFareComponent } from './component/admin/parking-fare/parking-fare.component';
+import { ParkingBookingComponent } from './component/admin/parking-booking/parking-booking.component';
 
 
 @NgModule({
@@ -34,6 +37,9 @@ import { BillBoardComponent } from './components/admin/bill-board/bill-board.com
     ServiceComponent,
     LoginComponent,
     BillBoardComponent,
+    ParkingComponent,
+    ParkingFareComponent,
+    ParkingBookingComponent,
   ],
   imports: [
     BrowserModule,

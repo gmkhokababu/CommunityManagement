@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.da.AccountsDA;
+import com.example.demo.da.AdvertisementPropertyDA;
+import com.example.demo.da.ParkingBookingDA;
+import com.example.demo.da.ParkingDA;
 import com.example.demo.da.PropertyDA;
 import com.example.demo.da.RentServicePropertyBookingDA;
 import com.example.demo.entity.Accounts;
 import com.example.demo.entity.AdvertiseCatagory;
 import com.example.demo.entity.AdvertisementProperty;
+import com.example.demo.entity.AdvertisementPropertyBooking;
 import com.example.demo.entity.Owner;
+import com.example.demo.entity.Parking;
+import com.example.demo.entity.ParkingBooking;
 import com.example.demo.entity.Property;
 import com.example.demo.entity.RentServiceProperty;
 import com.example.demo.entity.RentServicePropertyBooking;
@@ -27,8 +34,11 @@ import com.example.demo.entity.ServiceCatagory;
 import com.example.demo.entity.Transection;
 import com.example.demo.repo.AccountsRepo;
 import com.example.demo.repo.AdvertiseCatagoryRepo;
+import com.example.demo.repo.AdvertisementPropertyBookingRepo;
 import com.example.demo.repo.AdvertisementPropertyRepo;
 import com.example.demo.repo.OwnerRepo;
+import com.example.demo.repo.ParkingBookingRepo;
+import com.example.demo.repo.ParkingRepo;
 import com.example.demo.repo.PropertyRepo;
 import com.example.demo.repo.RentServicePropertyBookingRepo;
 import com.example.demo.repo.RentServicePropertyRepo;
@@ -73,6 +83,14 @@ public class Controller {
 	@Autowired
 	AdvertisementPropertyRepo advertisementPropertyRepo;
 	
+	@Autowired
+	AdvertisementPropertyBookingRepo advertisementPropertyBookingRepo;
+	
+	@Autowired
+	ParkingRepo parkingRepo;
+	
+	@Autowired
+	ParkingBookingRepo parkingBookingRepo;
 	
 	//=================================Owner================================
 	@PostMapping("/save-owner")
@@ -172,19 +190,19 @@ public class Controller {
 		
 		
 		//=======================Report========================================
-		String reports;
-		@GetMapping(value="/reports/{formate}")
-		public String exportreport(@PathVariable String formate) {
-			String path="C:/reports/";
-			String reportpath="";
-			try {
-				 
-				List<Owner> allOwnerData=(List<Owner>) ownerrepo.findAll();
-			}catch(Exception e) {
-				System.out.println(e);
-			}
-			return reports;
-		}
+//		String reports;
+//		@GetMapping(value="/reports/{formate}")
+//		public String exportreport(@PathVariable String formate) {
+//			String path="C:/reports/";
+//			String reportpath="";
+//			try {
+//				 
+//				List<Owner> allOwnerData=(List<Owner>) ownerrepo.findAll();
+//			}catch(Exception e) {
+//				System.out.println(e);
+//			}
+//			return reports;
+//		}
 		
 		
 		//===============================Rental service Property==============================
@@ -226,6 +244,14 @@ public class Controller {
 		rentServicePropertyBookingRepo.save(P);
 	}
 		
+	//get Booking 
+		@GetMapping("/getbookigproperty")
+		public Iterable<RentServicePropertyBooking> getbookingproperty() {
+			
+			 Iterable<RentServicePropertyBooking> all = rentServicePropertyBookingRepo.findAll();
+			 return all;
+			
+		}
 		
 	
 	
@@ -247,6 +273,17 @@ public class Controller {
 		
 	}
 	
+
+	//get Advertisement catagory
+	@GetMapping("/bookingadvertisement")
+	public Iterable<AdvertiseCatagory> allbookingadvertisement() {
+		
+		 Iterable<AdvertiseCatagory> all = advertiseCatagoryRepo.findAll();
+		 return all;
+		
+	}
+	
+	
 	
 	//save advertise property
 //	advertisementPropertyRepo
@@ -256,7 +293,92 @@ public class Controller {
 	}
 	
 	
+	//booked advertise
+	//advertisementPropertyBookingRepo
+	@PostMapping("/bookedadvertise")
+	public void bookedAdvertise(@RequestBody AdvertisementPropertyBooking A) {
+		advertisementPropertyBookingRepo.save(A);
+	}
 	
 	
+	//get advertisebooking
+	@GetMapping("/getbookigadvertise")
+	public Iterable<AdvertisementPropertyBooking> getbookingadvertise() {
+		
+		 Iterable<AdvertisementPropertyBooking> all = advertisementPropertyBookingRepo.findAll();
+		 return all;
+		
+	}
+	
+	//=============================get advertisement property by catagory============================
+	
+		@GetMapping("/get-advertisement-property-by-catagory/{catagory}")
+		public List<AdvertisementProperty> getAdvertisementPropertyByCatagory(@PathVariable String catagory){
+			AdvertisementPropertyDA da= new AdvertisementPropertyDA();
+			return da.getallAdvertisementPropertyByCatagory(catagory);
+		}
+	
+	
+		//=============================Parking section============================================
+		
+		//save advertise property
+//		parkingRepo
+		@PostMapping("/save-parking-slot")
+		public void saveParkingSlot(@RequestBody Parking p) {
+			parkingRepo.save(p);
+		}
+		
+		//get all parking slot by car type
+		@GetMapping("/get-parking-slot-by-car-type/{catagory}")
+		public List<Parking> getParkingSlotByCarType(@PathVariable String catagory){
+			ParkingDA da= new ParkingDA();
+			return da.getAllParkingSlotByCarType(catagory);
+		}
+		
+		//update status
+		@GetMapping("/update-parking-status/{slotNo}/{status}")
+		public void updateStatus(@PathVariable String slotNo, @PathVariable String status){
+			ParkingDA da= new ParkingDA();
+			da.updateStatus(status, slotNo);
+		}
+		
+		
+		//========================parking booking==================================
+		
+		
+		//save advertise property
+//		parkingBookingRepo
+		@PostMapping("/save-parking-booking")
+		public void saveParkingBooking(@RequestBody ParkingBooking p) {
+			parkingBookingRepo.save(p);
+		}
+		//getAllParkingCarByDateCarNo
+		//get all parking slot by car type
+				@GetMapping("/get-parking-by-date-carno/{date}/{carno}")
+				public List<ParkingBooking> getAllParkingCarByDateCarNo(@PathVariable Date date, @PathVariable String carno){
+					System.out.println("date=>"+date+"\n carno"+carno);
+					ParkingBookingDA da= new ParkingBookingDA();
+//					System.out.println(da.getAllParkingCarByDateCarNo(carno,date));
+					return da.getAllParkingCarByDateCarNo(carno,date);
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 }

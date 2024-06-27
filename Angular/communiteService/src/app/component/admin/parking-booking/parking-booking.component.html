@@ -1,0 +1,105 @@
+<div>
+    <div class="mt-3">
+        <select class="form-select" aria-label="Default select example" name="" [(ngModel)]="service">
+            <option value="select" selected>Select Option</option>
+            <option value="checkin">In</option>
+            <option value="checkout">Out</option>
+        </select>
+    </div>
+    <div>
+        <ng-template [ngIf]="service=='checkin'">
+            <!-- {{allslot|json}} -->
+            <!-- fare==>{{fare|json}} -->
+            <!-- slot No {{slotNo|json}} -->
+            <form (ngSubmit)="checkin()">
+                <div class="row">
+                    <div class="mb-3 col">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="carNo" class="form-label">Car No</label>
+                        <input type="email" class="form-control" id="carNo" name="carNo" [(ngModel)]="carNo">
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="cartype" class="form-label">Car Type</label>
+                        <select class="form-select" aria-label="Default select example" name="carType"
+                            [(ngModel)]="cartype" (change)="onCatagoryChangePropertyEvent($event)">
+                            <option value="select" selected>Select Option</option>
+                            <option value="By-Cycle">By-Cycle</option>
+                            <option value="Motor Cycle">Motor Cycle</option>
+                            <option value="Private Car">Private Car</option>
+                            <option value="Bus">Bus</option>
+                            <option value="Truck">Truck</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="slotNo" class="form-label">Slot No</label>
+                        <select class="form-select" aria-label="Default select example" name="slotNo"
+                            [(ngModel)]="slotNo" (change)="setfare($event)">
+                            <option value="select" selected>Select Option</option>
+                            <option *ngFor="let i of allslot" [value]="i.slotno">{{i.slotno}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </ng-template>
+        <ng-template [ngIf]="service=='checkout'">
+            <!-- {{allslot|json}} -->
+            <!-- fare==>{{fare|json}} -->
+            <!-- slot No {{slotNo|json}} -->
+             <!-- {{alldata|json}} -->
+             <br>
+             <!-- {{alldata.slotno|json}} -->
+            <form (ngSubmit)="checkout()">
+                <div class="row">
+                    <div class="mb-3 col">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="date">
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="carNo" class="form-label">Car No</label>
+                        <input type="email" class="form-control" id="carNo" name="carNo" [(ngModel)]="carNo" (blur)="findCheckoutdata()">
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="cartype" class="form-label">Car Type</label>
+                        <input type="text" class="form-control" id="cartype" name="cartype" [(ngModel)]="cartype"
+                            disabled>
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="slotNo" class="form-label">Slot No</label>
+                        <input type="text" class="form-control" id="slotNo" name="slotNo" [(ngModel)]="slotNo"
+                            disabled>
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="fare" class="form-label">Fare</label>
+                        <input type="number" class="form-control" id="fare" name="fare" [(ngModel)]="fare" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">
+                        <label for="accountNumber" class="form-label">Select Account Number</label>
+                        <select class="form-select" aria-label="Default select example" name="accountNumber" [(ngModel)]="accountNumber" (change)="setTransectionAccountsDetails($event)">
+                            <option value="select">Select Account Number</option>
+                            <option *ngFor="let i of accounts" [value]="i.accountName">{{i.accountName}} {{i.accountType}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col">
+                        <label for="transectionType" class="form-label">Select Payment Type</label>
+                        <select class="form-select" id="transectionType" name="transectionType" [(ngModel)]="transectionType">
+                          <option selected>Select Payment Type</option>
+                          <option value="Cash Deposit">Cash Deposit</option>
+                          <option value="Account Transfer">Account Transfer</option>
+                        </select>
+                      </div>
+                    <div class="mb-3 col">
+                        <label for="payAmmount" class="form-label">Payment</label>
+                        <input type="number" class="form-control" id="payAmmount" name="payAmmount" [(ngModel)]="payAmmount">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </ng-template>
+    </div>
+</div>

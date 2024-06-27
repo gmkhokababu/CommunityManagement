@@ -12,18 +12,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.da.AccountsDA;
+import com.example.demo.da.AdvertisementPropertyDA;
 import com.example.demo.da.PropertyDA;
+import com.example.demo.da.RentServicePropertyBookingDA;
 import com.example.demo.entity.Accounts;
+import com.example.demo.entity.AdvertiseCatagory;
+import com.example.demo.entity.AdvertisementProperty;
 import com.example.demo.entity.Owner;
 import com.example.demo.entity.Property;
+import com.example.demo.entity.RentServiceProperty;
+import com.example.demo.entity.RentServicePropertyBooking;
 import com.example.demo.entity.RentalAgreement;
 import com.example.demo.entity.RentalRegistration;
+import com.example.demo.entity.ServiceCatagory;
 import com.example.demo.entity.Transection;
 import com.example.demo.repo.AccountsRepo;
+import com.example.demo.repo.AdvertiseCatagoryRepo;
+import com.example.demo.repo.AdvertisementPropertyRepo;
 import com.example.demo.repo.OwnerRepo;
 import com.example.demo.repo.PropertyRepo;
+import com.example.demo.repo.RentServicePropertyBookingRepo;
+import com.example.demo.repo.RentServicePropertyRepo;
 import com.example.demo.repo.RentalAgreementRepo;
 import com.example.demo.repo.RentalRepo;
+import com.example.demo.repo.ServiceCatagoryRepo;
 import com.example.demo.repo.TransectionRepo;
 
 @RestController
@@ -47,9 +59,20 @@ public class Controller {
 	@Autowired
 	TransectionRepo transectionRepo;
 	
+	@Autowired
+	RentServicePropertyRepo rentServicePropertyRepo;
 	
+	@Autowired
+	ServiceCatagoryRepo serviceCatagoryRepo;
 	
+	@Autowired
+	RentServicePropertyBookingRepo rentServicePropertyBookingRepo;
 	
+	@Autowired
+	AdvertiseCatagoryRepo advertiseCatagoryRepo;
+	
+	@Autowired
+	AdvertisementPropertyRepo advertisementPropertyRepo;
 	
 	
 	//=================================Owner================================
@@ -110,6 +133,7 @@ public class Controller {
 		
 		//================================Accounts & Transection======================
 		
+		//created accounts
 		@PostMapping("/create-account")
 		public void createAccount(@RequestBody Accounts RA) {
 			
@@ -117,6 +141,7 @@ public class Controller {
 			System.out.println("Account created!");
 		}
 		
+		//update accounts
 		@PutMapping("/update-account/{id}")
 		public void updateAccount(@RequestBody Accounts RA, @PathVariable int id) {
 			System.out.println("Accounts=> "+RA);
@@ -125,6 +150,14 @@ public class Controller {
 			da.updateAccounts(id, RA);
 			
 		}
+		
+		//get accounts by type
+		@GetMapping("/get-accounts-by-type/{accountType}")
+		public List<Accounts> accountListByType(@PathVariable String accountType){
+			AccountsDA da=new AccountsDA();
+			return da.getAllAccountsByType(accountType);
+		}
+		
 		
 		@PostMapping("/save-transection")
 		public void createAccount(@RequestBody Transection RA) {
@@ -155,10 +188,84 @@ public class Controller {
 		}
 		
 		
+		//===============================Rental service Property==============================
+		
+		@PostMapping("/admin-property-save")
+		public void saveAdminProperty(@RequestBody RentServiceProperty P) {
+			rentServicePropertyRepo.save(P);
+		}
 		
 		
+		//=================================== Save Admin property catagory ===================
+		@PostMapping("/admin-property-catagory-save")
+		public void saveAdminPropertyCatagory(@RequestBody ServiceCatagory P) {
+			serviceCatagoryRepo.save(P);
+		}
+		
+		//=================================== get Admin property catagory ===================
+		@GetMapping("/get-admin-property-catagory")
+		public Iterable<ServiceCatagory> getAllAdminPropertyCatagory() {
+			
+			 Iterable<ServiceCatagory> all = serviceCatagoryRepo.findAll();
+			 return all;
+			
+		}
+		
+		//=============================get admin property by catagory============================
+		
+	@GetMapping("/get-admin-property-by-catagory/{catagory}")
+	public List<RentServiceProperty> getAdminPropertyByCatagory(@PathVariable String catagory){
+		RentServicePropertyBookingDA da= new RentServicePropertyBookingDA();
+		return da.getallPropertyByCatagory(catagory);
+	}
+	
+	
+	//======================Rental service property booking=======================================
+	
+	@PostMapping("/admin-property-booking-save")
+	public void saveAdminPropertyBooking(@RequestBody RentServicePropertyBooking P) {
+		rentServicePropertyBookingRepo.save(P);
+	}
 		
 		
+	
+	
+	//===============================Advertise ment===================================
+	
+	//save advertisement catagory
+//	advertiseCatagoryRepo
+	@PostMapping("/advertisement-catagory-save")
+	public void saveAdvertisementCatagory(@RequestBody AdvertiseCatagory A) {
+		advertiseCatagoryRepo.save(A);
+	}
+	
+	//get Advertisement catagory
+	@GetMapping("/advertisement-catagory-gate")
+	public Iterable<AdvertiseCatagory> getAdvertisementCatagory() {
 		
+		 Iterable<AdvertiseCatagory> all = advertiseCatagoryRepo.findAll();
+		 return all;
+		
+	}
+	
+	
+	//save advertise property
+//	advertisementPropertyRepo
+	@PostMapping("/advertisement-property-save")
+	public void saveAdvertisementProperty(@RequestBody AdvertisementProperty A) {
+		advertisementPropertyRepo.save(A);
+	}
+	
+	//=============================get advertisement property by catagory============================
+	
+		@GetMapping("/get-advertisement-property-by-catagory/{catagory}")
+		public List<AdvertisementProperty> getAdvertisementPropertyByCatagory(@PathVariable String catagory){
+			
+			AdvertisementPropertyDA da= new AdvertisementPropertyDA();
+		
+			return da.getallAdvertisementPropertyByCatagory(catagory);
+		}
+	
+	
 		
 }

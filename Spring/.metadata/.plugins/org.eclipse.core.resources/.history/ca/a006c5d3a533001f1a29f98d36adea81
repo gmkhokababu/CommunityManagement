@@ -1,0 +1,32 @@
+package com.example.demo.da;
+
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.entity.AdvertisementProperty;
+
+public class AdvertisementPropertyDA extends MySqlConnection{
+
+	String getAllPropertyByCatagory="select * from rent_service_property where catagory=?";
+	public List<AdvertisementProperty> allPropertybyCatagory=new ArrayList<>();
+	public List<AdvertisementProperty> getallPropertyByCatagory(String catagory){
+			
+			
+			try {
+				con=DriverManager.getConnection(url,user,pass);
+				ps=con.prepareStatement(getAllPropertyByCatagory);
+				ps.setString(1, catagory);
+				rs=ps.executeQuery();
+				while (rs.next()) {
+
+					allPropertybyCatagory.add(new AdvertisementProperty(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),rs.getString(5)));
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			return allPropertybyCatagory;
+			
+	}
+}

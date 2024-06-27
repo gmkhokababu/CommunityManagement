@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Property } from 'src/app/model/property';
 import { ControllerService } from 'src/app/service/controller.service';
 
@@ -18,7 +19,7 @@ export class OwnerComponent implements OnInit {
 
   allproperty:any=[];
 
-  constructor(private myservice:ControllerService) {
+  constructor(private myservice:ControllerService, private router:Router) {
     this.getAllProperty();
    }
 
@@ -40,6 +41,8 @@ getAllProperty(){
 }
 
 
-
+rent(){
+  this.router.navigateByUrl("/owner/property");
+}
 
 }

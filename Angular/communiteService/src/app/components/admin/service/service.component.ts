@@ -19,10 +19,17 @@ export class ServiceComponent implements OnInit {
     });
     this.myservice.getAllAccountsByType(this.taccountType).subscribe((x)=>{
       this.accounts=x;
-    })
+    });
+    this.getallbookingdata();
    }
 
   ngOnInit(): void {
+  }
+  allbookinglist:any=[];
+  getallbookingdata(){
+    this.myservice.getallpropertybooking().subscribe((x)=>{
+      this.allbookinglist=x;
+    })
   }
 
   //==============================service Catagory==================================
